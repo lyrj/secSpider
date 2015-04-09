@@ -17,3 +17,5 @@ libraryDependencies ++= Seq(
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 
 libraryDependencies +=  "org.scalaj" %% "scalaj-http" % "1.1.4"
+libraryDependencies += "org.jsoup" % "jsoup" % "1.7.2"
+
