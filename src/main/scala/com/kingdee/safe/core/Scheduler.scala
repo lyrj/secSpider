@@ -9,7 +9,7 @@ import scala.collection.mutable.HashSet
 /**
  * Author   : xiaogo
  * Date     : 2015-04-08 10:01
- * Copyright: Skyworth Co.,Ltd
+ * Copyright: Kingdee Co.,Ltd
  */
 
 class Scheduler(starts_urls:List[String],

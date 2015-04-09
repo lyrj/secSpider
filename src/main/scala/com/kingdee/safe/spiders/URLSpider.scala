@@ -8,7 +8,7 @@ import com.kingdee.safe.core.messages.Response
 /**
  * Author   : xiaogo
  * Date     : 2015-04-08 15:11
- * Copyright: Skyworth Co.,Ltd
+ * Copyright: Kingdee Co.,Ltd
  */
 class URLSpider extends Spider{
 	val regexMap = Map[String,(Response)=>Any](".*"->parse_AnyPage)

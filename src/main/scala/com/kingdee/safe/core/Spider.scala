@@ -11,7 +11,7 @@ import org.jsoup.nodes.Element
 /**
  * Author   : xiaogo
  * Date     : 2015-04-08 10:03
- * Copyright: Skyworth Co.,Ltd
+ * Copyright: Kingdee Co.,Ltd
  */
 trait Spider extends Actor with ActorLogging{
 	val name:String

@@ -7,11 +7,11 @@ import scalaj.http.Http
 /**
  * Author   : xiaogo
  * Date     : 2015-04-08 10:02
- * Copyright: Skyworth Co.,Ltd
+ * Copyright: Kingdee Co.,Ltd
  */
 class Downloader extends Actor{
 	def receive = {
-		case Requests(url,method,params) => {
+		case Requests(url,method,params) =>
 			//TODO : Download url and send message to spider.
 			try {
 				val in = Http(url).timeout(connTimeoutMs = 3000, readTimeoutMs = 10000).asString
@@ -32,7 +32,5 @@ class Downloader extends Actor{
 					case e:Exception =>
 						print(e)
 				}
-
-		}
 	}
 }

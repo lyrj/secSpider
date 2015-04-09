@@ -3,7 +3,7 @@ package com.kingdee.safe.core.messages
 /**
  * @author   : xiaogo
  * date     : 2015-04-07 21:50
- * copyright: Skyworth Co.,Ltd
+ * copyright: Kingdee Co.,Ltd
  */
 case class Requests(url:String,method:String = "GET",params:String = "") {}
 
