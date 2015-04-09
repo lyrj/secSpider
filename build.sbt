@@ -1,6 +1,8 @@
 name := "secSpider"
 
-version := "1.0"
+version := "0.1.0-SNAPSHOT"
+
+organization := "com.kingdee.safe"
 
 scalaVersion := "2.11.6"
 
