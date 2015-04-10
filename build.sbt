@@ -18,6 +18,9 @@ libraryDependencies ++= Seq(
 
 testOptions += Tests.Argument(TestFrameworks.JUnit, "-v")
 
+//HTTP Protocol resolver
 libraryDependencies +=  "org.scalaj" %% "scalaj-http" % "1.1.4"
+//XML Parser
 libraryDependencies += "org.jsoup" % "jsoup" % "1.7.2"
-
+//Akka logging framework
+libraryDependencies += "com.typesafe.akka" % "akka-slf4j_2.11" % "2.3.9"

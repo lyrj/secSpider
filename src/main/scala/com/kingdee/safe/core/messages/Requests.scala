@@ -9,4 +9,4 @@ case class Requests(url:String,method:String = "GET",params:String = "") {}
 
 case class Response(requests: Requests,responseBody: ResponseBody) {}
 
-case class ResponseBody(status:Int,content:String) {}
+case class ResponseBody(status:Int, content:String) {}

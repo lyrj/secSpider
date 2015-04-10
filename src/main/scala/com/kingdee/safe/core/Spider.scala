@@ -17,22 +17,22 @@ trait Spider extends Actor with ActorLogging{
 	val name:String
 	val allowed_domain:String
 	val regexMap:Map[String,(Response)=>Any]
-	val logger = Logging(context.system,this)
+//	val logger = Logging(context.system,this)
 	override def preStart() = println("Spider %s has been initialized.".format(self))
 	import scala.collection.JavaConversions._
 
 	override final def receive = {
-		case Response(req,resp) =>
+		case msg:Response =>
 			//Analyze url, sent to scheduler
-			for(x <- extractURL(resp.content))
+			for(x <- extractURL(msg.responseBody.content))
 				sender() ! x
 			//Call processing func.
 			for(i <- regexMap.keys)
 			{
-				if(req.url.matches(i))
-					regexMap(i)(Response(req,resp))
+				if(msg.requests.url.matches(i))
+					regexMap(i)(Response(msg.requests,msg.responseBody))
 			}
-			logger.error("Crawled (%d), %s".format(resp.status,req.url))
+			log.info("Crawled (%d), %s".format(msg.responseBody.status,msg.requests.url))
 	}
 
 	def extractURL(x:String):Iterator[Requests] = {

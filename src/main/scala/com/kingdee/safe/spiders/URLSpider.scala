@@ -10,10 +10,14 @@ import com.kingdee.safe.core.messages.Response
  * Date     : 2015-04-08 15:11
  * Copyright: Kingdee Co.,Ltd
  */
+
 class URLSpider extends Spider{
 	val regexMap = Map[String,(Response)=>Any](".*"->parse_AnyPage)
 	val name = "URLSpider"
 	val allowed_domain = "feidee.com"
 	def parse_AnyPage(x:Response) = {
+
 	}
+
 }
+

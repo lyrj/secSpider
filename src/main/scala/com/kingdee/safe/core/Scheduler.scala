@@ -33,13 +33,13 @@ class Scheduler(starts_urls:List[String],
 
 	def receive = {
 		//Dispatch the URL Download Requests.
-		case Requests(url,method,params) =>
-			if(filter(url)) {
-				downloader ! Requests(url,method,params)
+		case msg:Requests =>
+			if(filter(msg.url)) {
+				downloader ! Requests(msg.url,msg.method,msg.params)
 			}
 
-		case Response(req,resp) =>
-			spiders ! Response(req,resp)
+		case msg:Response =>
+			spiders ! Response(msg.requests,msg.responseBody)
 	}
 
 
