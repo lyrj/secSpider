@@ -7,7 +7,7 @@ import com.typesafe.config.ConfigFactory
  */
 object ConfigTest {
 	def main(args: Array[String]) {
-		val config = ConfigFactory.parseFile(new java.io.File(System.getProperty("user.dir") + "/application.conf"))
+		val config = ConfigFactory.parseFile(new java.io.File(System.getProperty("user.dir") +"/"+ args(0)))
 		print(config.getString("test.test"))
 //		print(System.getProperty("user.dir"))
 	}

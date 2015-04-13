@@ -1,4 +1,5 @@
 import akka.actor._
+import com.kingdee.safe.core.ReadingConfig
 import com.typesafe.config.ConfigFactory
 
 import scala.util.control.NonFatal
@@ -10,15 +11,14 @@ import scala.util.control.NonFatal
  */
   object Main {
   def main(args: Array[String]): Unit = {
+	  ReadingConfig.argList = args toList
+	  val str = args(0).toString
 	  val system = ActorSystem("Main")
 	  try {
-		  //ExtendedActorSystem].dynamicAccess.getClassFor[Actor](args(0)).get
-		  val app = system.actorOf(Props(classOf[com.kingdee.safe.core.Scheduler],
-			  "http://www.feidee.com"::Nil,"kingdee.com"::Nil,"URLSpider"), "app")
+		  val app = system.actorOf(Props(classOf[com.kingdee.safe.core.Scheduler]),"app")
 		  val terminator = system.actorOf(Props(classOf[Terminator], app), "app-terminator")
 	  } catch {
 		  case NonFatal(e) => system.shutdown(); throw e
-
 	  }
   }
 	class Terminator(app: ActorRef) extends Actor with ActorLogging {

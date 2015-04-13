@@ -4,7 +4,7 @@ import akka.actor.{Deploy, Actor, Props}
 import akka.routing.RoundRobinRouter
 import com.kingdee.safe.core.messages.{Response, Requests}
 import scala.collection.mutable
-import scala.collection.mutable.HashSet
+import scala.collection.JavaConversions._
 
 /**
  * Author   : xiaogo
@@ -12,17 +12,19 @@ import scala.collection.mutable.HashSet
  * Copyright: Kingdee Co.,Ltd
  */
 
-class Scheduler(starts_urls:List[String],
-                allowed_domain:List[String],
-                use_spider:String) extends Actor{
-	var urls:List[String] = starts_urls
+class Scheduler extends Actor with ReadingConfig{
 
+	//******initialization of spiders and downloaders ||| *******
+	val urls:List[String] = conf.getStringList("secSpider.spider.start_urls").toList
+	val spider_thread_cnt = conf.getInt("secSpider.spider.thread_count")
+	val use_spider = conf.getString("secSpider.spider.use_spider")
+	val downloader_thread_cnt = conf.getInt("secSpider.downloader.thread_count")
 	val downloader = context.actorOf(Props[Downloader]
-		.withRouter(RoundRobinRouter(nrOfInstances = 10)),"downloader")
+		.withRouter(RoundRobinRouter(nrOfInstances = downloader_thread_cnt)),"downloader")
 
 	val spiderClazz = Class.forName("com.kingdee.safe.spiders."+use_spider)
 	val spiders = context.actorOf(new Props(new Deploy,spiderClazz,Nil)
-		.withRouter(RoundRobinRouter(nrOfInstances = 10)) )
+		.withRouter(RoundRobinRouter(nrOfInstances = spider_thread_cnt)) )
 
 	println("Scheduler %s has been initialized.".format(self))
 
@@ -30,6 +32,7 @@ class Scheduler(starts_urls:List[String],
 		//Send First Download Task.
 		downloader ! Requests(i,"GET","")
 
+	//******initialization of spiders and downloaders ||| *******
 
 	def receive = {
 		//Dispatch the URL Download Requests.

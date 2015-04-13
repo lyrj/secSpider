@@ -13,9 +13,9 @@ import org.jsoup.nodes.Element
  * Date     : 2015-04-08 10:03
  * Copyright: Kingdee Co.,Ltd
  */
-trait Spider extends Actor with ActorLogging{
+trait Spider extends Actor with ActorLogging with ReadingConfig{
 	val name:String
-	val allowed_domain:String
+	val allowed_domain:String = conf.getString("secSpider.spider.allowed_domain")
 	val regexMap:Map[String,(Response)=>Any]
 //	val logger = Logging(context.system,this)
 	override def preStart() = println("Spider %s has been initialized.".format(self))
@@ -40,7 +40,9 @@ trait Spider extends Actor with ActorLogging{
 		val doc = Jsoup.parse(x)
 		val links = doc.getElementsByTag("a")
 		for(i:Element <- links.iterator
-		    if i.attr("href").contains(allowed_domain))
+			//Downloader should be restrict with regexMap
+		    if i.attr("href").contains(allowed_domain)
+			    && regexMap.keys.map(i.attr("href").matches).exists(_.equals(true)))
 			yield
 				Requests(i.attr("href"))
 	}
