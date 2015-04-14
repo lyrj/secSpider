@@ -95,3 +95,5 @@ project/boot/
 hs_err_pid*
 
 
+#Mac OS X
+.DS_Store/
