@@ -36,12 +36,11 @@ class Scheduler extends Actor with ReadingConfig{
 	def receive = {
 		//Dispatch the URL Download Requests.
 		case msg:Requests =>
-			if(filter(msg.url)) {
-				downloader ! Requests(msg.url,msg.method,msg.params)
-			}
-
+			if(filter(msg.url))
+				downloader ! msg
+		//Dispatch the Downloaded message to spiders
 		case msg:Response =>
-			spiders ! Response(msg.requests,msg.responseBody)
+			spiders ! msg
 	}
 
 
