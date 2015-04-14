@@ -17,7 +17,6 @@ trait Spider extends Actor with ActorLogging with ReadingConfig{
 	val name:String
 	val allowed_domain:String = conf.getString("secSpider.spider.allowed_domain")
 	val regexMap:Map[String,(Response)=>Any]
-//	val logger = Logging(context.system,this)
 	override def preStart() = println("Spider %s has been initialized.".format(self))
 	import scala.collection.JavaConversions._
 

@@ -1,9 +1,6 @@
 package com.kingdee.safe.core
 
-import java.io.File
 import com.typesafe.config.{Config, ConfigFactory}
-
-import scala.util.control.Exception
 
 /**
  * Author   : xiaogo

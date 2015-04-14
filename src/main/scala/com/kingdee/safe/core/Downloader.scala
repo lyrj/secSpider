@@ -1,10 +1,8 @@
 package com.kingdee.safe.core
 
-import java.net.{UnknownHostException, MalformedURLException, SocketTimeoutException, URL}
-import java.util.Date
-
-import akka.actor.{ActorLogging, Actor}
-import com.kingdee.safe.core.messages.{ResponseBody, Requests, Response}
+import java.net.{MalformedURLException, SocketTimeoutException, UnknownHostException}
+import akka.actor.{Actor, ActorLogging}
+import com.kingdee.safe.core.messages.{Requests, Response, ResponseBody}
 import scalaj.http.Http
 /**
  * Author   : xiaogo
@@ -19,7 +17,6 @@ class Downloader extends Actor with ActorLogging with ReadingConfig{
 	def receive = {
 		case msg:Requests =>
 			try {
-				val before = new Date().getTime
 				//test if url is a file
 				if(isFile (msg.url))
 					throw new MalformedURLException("URL is File, interrupt download. + " + msg.url)
@@ -40,36 +37,26 @@ class Downloader extends Actor with ActorLogging with ReadingConfig{
 				else if (in.isError) {
 					throw new Exception("Downloader Failed. " +in.code + msg.url)
 				}
-//				log.error("downloader elapse :" + (new Date().getTime - before))
-//				log.error("downloader compelete : " + in.body.length)
 			}catch
 				{
 					case e:SocketTimeoutException => log.info("Connect Time Out / " + msg.url)
 					case e:MalformedURLException => log.info("URL is malformed, interrupt download. / " +msg.url)
 					case e:UnknownHostException => log.info("host unknown / " +msg.url)
-					case e:Exception => {e.printStackTrace();println(msg.url)}
+					case e:Exception => e.printStackTrace(); println(msg.url)
 				}
 	}
-	def isFile(url:String): Boolean = {
-		url.contains("pdf")||
-			url.contains("mkv")||
-			url.contains("avi")||
-			url.contains("jpg")||
-			url.contains("jpeg")||
-			url.contains("mp3")||
-			url.contains("ppt")||
-			url.contains("doc")||
-			url.contains("zip")||
-			url.contains("rar")||
-			url.contains("xml")||
-			url.contains("js")||
-			url.contains("exe")
-//		val before = new Date().getTime
-//		val conn = new URL(url).openConnection()
-//		conn.setConnectTimeout(PryTimeOutMs)
-//		val Type = conn.getContentType
-		//lazy evaluation <- scala feature
-//		log.error("time elapse: " + (new Date().getTime - before))
-//		! ((Type eq null) || (Type contains "text") || (Type contains "html"))
-	}
+	def isFile(url:String): Boolean =
+		url.contains("pdf") ||
+		url.contains("mkv") ||
+		url.contains("avi") ||
+		url.contains("jpg") ||
+		url.contains("jpeg")||
+		url.contains("mp3") ||
+		url.contains("ppt") ||
+		url.contains("doc") ||
+		url.contains("zip") ||
+		url.contains("rar") ||
+		url.contains("xml") ||
+		url.contains("js")  ||
+		url.contains("exe")
 }

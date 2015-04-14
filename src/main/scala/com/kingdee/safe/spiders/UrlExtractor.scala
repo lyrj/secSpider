@@ -18,8 +18,5 @@ object UrlExtractor {
 		else
 			Nil
 	}
-	def ## = {
-
-	}
 
 }

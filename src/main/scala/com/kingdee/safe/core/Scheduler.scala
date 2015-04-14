@@ -14,7 +14,7 @@ import scala.collection.JavaConversions._
 
 class Scheduler extends Actor with ReadingConfig{
 
-	//******initialization of spiders and downloaders ||| *******
+	//******initialization of spiders and downloader    *******
 	val urls:List[String] = conf.getStringList("secSpider.spider.start_urls").toList
 	val spider_thread_cnt = conf.getInt("secSpider.spider.thread_count")
 	val use_spider = conf.getString("secSpider.spider.use_spider")
@@ -31,7 +31,7 @@ class Scheduler extends Actor with ReadingConfig{
 		//Send First Download Task.
 		downloader ! Requests(i,"GET","")
 
-	//******initialization of spiders and downloaders ||| *******
+	//******initialization of spiders and downloader    *******
 
 	def receive = {
 		//Dispatch the URL Download Requests.
