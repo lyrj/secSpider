@@ -24,7 +24,7 @@ object ReadingConfig {
 	}
 	def apply () = {
 		if (this.config eq null)
-			this.parseArgList
+			this.parseArgList()
 		config
 	}
 }

@@ -9,8 +9,7 @@ import akka.actor.Actor
  */
 class Pipeline extends Actor{
   def receive = {
-    case _ => null
+    case _ => Nil
 
   }
-
 }
