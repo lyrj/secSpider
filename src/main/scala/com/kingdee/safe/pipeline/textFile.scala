@@ -9,7 +9,7 @@ import com.kingdee.safe.core.{ReadingConfig, OutputLine}
  * Date     : 2015-04-15 10:27
  * Copyright: Kingdee Co.,Ltd
  */
-class textFile extends OutputLine with ReadingConfig{
+class textFile extends OutputLine {
 	//Implements of outputLine
 	val fileName = conf.getString("secSpider.output_File")
 	val writer = new PrintWriter(new File(fileName))

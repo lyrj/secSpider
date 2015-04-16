@@ -35,14 +35,14 @@ class Downloader extends Actor with ActorLogging with ReadingConfig{
 							new ResponseBody(in.code, in.toString))
 				}
 				else if (in.isError) {
-					throw new Exception("Downloader Failed. " +in.code + msg.url)
+					throw new Exception("Failed. (" +in.code + ") " + msg.url)
 				}
 			}catch
 				{
-					case e:SocketTimeoutException => log.info("Connect Time Out / " + msg.url)
-					case e:MalformedURLException => log.info("URL is malformed, interrupt download. / " +msg.url)
-					case e:UnknownHostException => log.info("host unknown / " +msg.url)
-					case e:Exception => e.printStackTrace(); println(msg.url)
+					case e:SocketTimeoutException => log.info("SKIPPED Connect Time Out / " + msg.url)
+					case e:MalformedURLException => log.info("SKIPPED URL is malformed, interrupt download. / " +msg.url)
+					case e:UnknownHostException => log.info("SKIPPED host unknown / " +msg.url)
+					case e:Exception =>  log.error(e.toString)
 				}
 	}
 	def isFile(url:String): Boolean =
