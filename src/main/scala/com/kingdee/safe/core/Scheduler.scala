@@ -42,7 +42,7 @@ class Scheduler extends Actor with ReadingConfig{
 		//Dispatch the Downloaded message to spiders
 		case msg:Response =>
 			spiders ! msg
-
+		//Dispatch the Item message to pipeline.
 		case msg:Item =>
 			pipeline ! msg
 
