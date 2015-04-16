@@ -46,17 +46,17 @@ class Downloader extends Actor with ActorLogging with ReadingConfig{
 				}
 	}
 	def isFile(url:String): Boolean =
-		url.contains("pdf") ||
-		url.contains("mkv") ||
-		url.contains("avi") ||
-		url.contains("jpg") ||
-		url.contains("jpeg")||
-		url.contains("mp3") ||
-		url.contains("ppt") ||
-		url.contains("doc") ||
-		url.contains("zip") ||
-		url.contains("rar") ||
-		url.contains("xml") ||
-		url.contains("js")  ||
-		url.contains("exe")
+		url.contains(".pdf") ||
+		url.contains(".mkv") ||
+		url.contains(".avi") ||
+		url.contains(".jpg") ||
+		url.contains(".jpeg")||
+		url.contains(".mp3") ||
+		url.contains(".ppt") ||
+		url.contains(".doc") ||
+		url.contains(".zip") ||
+		url.contains(".rar") ||
+		url.contains(".xml") ||
+		url.contains(".js")  ||
+		url.contains(".exe")
 }

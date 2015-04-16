@@ -2,7 +2,7 @@ package com.kingdee.safe.core
 
 import akka.actor.{Deploy, Actor, Props}
 import akka.routing.RoundRobinRouter
-import com.kingdee.safe.core.messages.{Response, Requests}
+import com.kingdee.safe.core.messages.{Item, Response, Requests}
 import scala.collection.mutable
 import scala.collection.JavaConversions._
 
@@ -24,6 +24,7 @@ class Scheduler extends Actor with ReadingConfig{
 	val spiderClazz = Class.forName("com.kingdee.safe.spiders."+use_spider)
 	val spiders = context.actorOf(new Props(new Deploy,spiderClazz,Nil)
 		.withRouter(RoundRobinRouter(nrOfInstances = spider_thread_cnt)) )
+	val pipeline = context.actorOf(Props[Pipeline])
 
 	println("Scheduler %s has been initialized.".format(self))
 
@@ -41,6 +42,10 @@ class Scheduler extends Actor with ReadingConfig{
 		//Dispatch the Downloaded message to spiders
 		case msg:Response =>
 			spiders ! msg
+
+		case msg:Item =>
+			pipeline ! msg
+
 	}
 
 

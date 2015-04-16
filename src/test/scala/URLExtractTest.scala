@@ -14,16 +14,16 @@ object URLExtractTest {
 
 		for (s<-fil.getLines()) {
 			try {
-				val r = UrlExtractor.extract(s)
+				val r = UrlExtractor.extractParam(s)
 				val row = r match {
-					case Nil => s + '\n'
-					case (ripped_url:String, params: Array[String],setters: Array[String]) =>
-						ripped_url +"?"+ params.map(_ + "=#{p}").reduce(_ + "&" + _)
+					case (ripped_url:String,kvMap:Map[Any,Any]) =>
+						println(s)
+						println(ripped_url)
+						for( (k,v)<- kvMap)
+							println(k,v)
 				}
-				println("origin:" + s)
-				println(row)
 			}catch{
-				case e:Exception => println("err: " + s)
+				case e:Exception => e.printStackTrace()
 			}
 		}
 	}

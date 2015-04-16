@@ -28,8 +28,10 @@ trait Spider extends Actor with ActorLogging with ReadingConfig{
 			//Call processing func.
 			for(i <- regexMap.keys)
 			{
-				if(msg.requests.url.matches(i))
-					regexMap(i)(Response(msg.requests,msg.responseBody))
+				if(msg.requests.url.matches(i)) {
+					val res = regexMap(i)(Response(msg.requests, msg.responseBody))
+					sender() ! res
+				}
 			}
 			log.info("Crawled (%d), %s".format(msg.responseBody.status,msg.requests.url))
 	}
