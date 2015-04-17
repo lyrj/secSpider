@@ -21,9 +21,11 @@ class Scheduler extends Actor with ReadingConfig{
 	val downloader_thread_cnt = conf.getInt("secSpider.downloader.thread_count")
 	val downloader = context.actorOf(Props[Downloader]
 		.withRouter(RoundRobinRouter(nrOfInstances = downloader_thread_cnt)),"downloader")
+
 	val spiderClazz = Class.forName("com.kingdee.safe.spiders."+use_spider)
 	val spiders = context.actorOf(new Props(new Deploy,spiderClazz,Nil)
 		.withRouter(RoundRobinRouter(nrOfInstances = spider_thread_cnt)) )
+
 	val pipeline = context.actorOf(Props[Pipeline])
 
 	println("Scheduler %s has been initialized.".format(self))

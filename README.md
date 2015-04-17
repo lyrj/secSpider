@@ -1,4 +1,4 @@
-# SecSpider Dev Progess:
+# SecSpider Dev Progress:
 
 + 0.01 / Apr 9 / Basic Framework founded.
 
